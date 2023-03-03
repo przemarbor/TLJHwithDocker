@@ -1,0 +1,34 @@
+ 
+* How to use this repo
+This repository is intended to automate the process of installation and
+configuration of TheLittlestJupyterHub service.
+
+1. On the server of your choice (in ~ssh~?), in the directory of your choice run:
+   #+begin_src bash
+   git clone https://github.com/przemarbor/JupyterHub-TheLittlest-ViaDocker
+   #+end_src
+
+2. Make apropriate changes in ~Makefile~:
+  - change ~adminLogin~ from default ~admin~!!!
+  - if you want to build new server and test it without stopping running instance
+    of the server you should additionally change variables:
+    ~localDir~, ~containername~ and ~externalPort~     
+  - ~dataDir~ should stay the same or you should copy the content of the ~dataDir~
+  from running instance of the server to another one that is going to be tested
+
+3. Run
+   #+begin_src bash
+   make initialize-project-from-scratch
+   #+end_src
+      
+   and wait for a while.
+   After some time you should have JupyterHub running at
+   ~yourMachineAddress:externalPort~ (for instance ~127.0.0.1:12000~,
+   ~localhost:12000~, ~62.14.11.123:12000~ or whatever...).
+
+4. Now login for the first time as an admin and set their (:-)) password.
+   Go to ~New -> Terminal~. At the command line download
+   admin's configuration script by:
+   #+begin_src bash
+   
+   #+end_src   
