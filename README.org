@@ -1,9 +1,10 @@
  
 * How to use this repo
-This repository is intended to automate the process of installation and
-configuration of TheLittlestJupyterHub service.
+This repository is intended to automate the process of installation,
+configuration and management of TheLittlestJupyterHub service.
 
-1. On the server of your choice (in ~ssh~?), in the directory of your choice run:
+1. With the use of ~ssh~ (or ~bash~ if you're on localhost) login into the
+   server of your choice and in the directory of your choice run:
    #+begin_src bash
    git clone https://github.com/przemarbor/JupyterHub-TheLittlest-ViaDocker
    #+end_src
@@ -28,7 +29,7 @@ configuration of TheLittlestJupyterHub service.
 
 4. Now login for the first time as an admin and set their (:-)) password.
    Go to ~New -> Terminal~. At the command line download
-   admin's configuration script by:
+   admin's configuration script and execute it:
    #+begin_src bash
-   
+   curl https://raw.githubusercontent.com/przemarbor/TLJHwithDocker/main/adminInstallScript.sh --output adminInstallScript.sh && bash adminInstallScript.sh
    #+end_src   

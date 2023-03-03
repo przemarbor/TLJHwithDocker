@@ -8,19 +8,19 @@
 
 ## Set the name of the user with admin privileges
 ## Their :-) password will be set at first login
-adminLogin   := admin
+adminLogin   :="admin"
 
 # Name of the local folder for TLJH repository 
-localDir     := tljh 
+localDir     := "tljh"
 
 # Set the name of the containter
-containername:= tljhcont
+containername:="tljhcontainer"
 
 # Set port of your machine at which the JupyteHub service will be accessible
-externalPort := 12000
+externalPort :="12000"
 
 # name of the local folder for the data (admin/users data) of TLJH server
-dataDir      := data
+dataDir      :="data"
 
 # auxiliary variables
 current_dir  := $(shell pwd)
@@ -53,13 +53,20 @@ clean-auxiliary:
 	find . -name '.#*.org'    -exec rm --force {} \;
 	find . -name '.#*.tex'    -exec rm --force {} \;
 	find . -name '.#*.pdf'    -exec rm --force {} \;
+	find . -name '_minted-README'    -exec rm -rf {} \;
 
 .PHONY: download-image
 ## Download image from repo
-download-image:
+download-image:	
+#	if [ ! -d ${PROJECTDIR} ]; then mkdir ${PROJECTDIR}; fi
+	if [ ! -d ${PROJECTDIR} ];
+	then
 	git clone https://github.com/jupyterhub/the-littlest-jupyterhub
-	if [ ! -d ${PROJECTDIR} ]; then mkdir ${PROJECTDIR}; fi
-	mv the-littlest-jupyterhub ${PROJECTDIR}
+	mv the-littlest-jupyterhub ${localDir};
+	else
+	@echo "Directory '${PROJECTDIR}' already exists! Do something about this!"
+	fi
+	
 
 .PHONY: build-image
 ## Build image
@@ -100,13 +107,12 @@ stop-server:
 ##  Clean project files
 clean-whole-project:	
 	@echo "Really want to do this? Uncomment the lines below and run 'make clean' again."
-# 	docker stop ${containername} # stop container
-# 	docker rm ${containername}   # remove container
-# 	docker container prune       # remove all stopped containers
-# 	docker system prune          # remove unused containers 
-# 	${PROJECTDIR}
-# 	rm -rf ${localDir}
-# 	rm -rf data
+	docker stop ${containername} # stop container
+	docker rm ${containername}   # remove container
+	docker container prune       # remove all stopped containers
+	docker system prune          # remove unused containers 
+	rm -rf ${localDir}
+	rm -rf data
 
 .PHONY: testing
 ##  Testing 
